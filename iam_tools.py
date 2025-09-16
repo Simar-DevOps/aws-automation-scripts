@@ -43,7 +43,11 @@ def create_user(username: str) -> None:
             sys.exit(1)
 
 
-def put_inline_policy(username: str, policy_name: str, policy_doc: dict) -> None:
+def put_inline_policy(
+    username: str,
+    policy_name: str,
+    policy_doc: dict,
+) -> None:
     try:
         iam.put_user_policy(
             UserName=username,
