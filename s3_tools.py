@@ -1,26 +1,30 @@
 #!/usr/bin/env python3
-import argparse, sys
+import argparse
+import sys
+
 import boto3
 from botocore.exceptions import ClientError
 
 
-def s3_client(region=None):
+def s3_client(region: str | None = None):
     return boto3.client("s3", region_name=region)
 
 
-def list_buckets():
+def list_buckets() -> None:
     s3 = s3_client()
     resp = s3.list_buckets()
     for b in resp.get("Buckets", []):
         print(b["Name"])
 
 
-def create_bucket(bucket, region):
+def create_bucket(bucket: str, region: str) -> None:
     s3 = s3_client(region)
     try:
         if region and region != "us-east-1":
+            config = {"LocationConstraint": region}
             s3.create_bucket(
-                Bucket=bucket, CreateBucketConfiguration={"LocationConstraint": region}
+                Bucket=bucket,
+                CreateBucketConfiguration=config,
             )
         else:
             s3.create_bucket(Bucket=bucket)
@@ -30,7 +34,7 @@ def create_bucket(bucket, region):
         sys.exit(1)
 
 
-def upload_file(bucket, path, key):
+def upload_file(bucket: str, path: str, key: str) -> None:
     s3 = s3_client()
     try:
         s3.upload_file(path, bucket, key)
@@ -40,7 +44,7 @@ def upload_file(bucket, path, key):
         sys.exit(1)
 
 
-def download_file(bucket, key, path):
+def download_file(bucket: str, key: str, path: str) -> None:
     s3 = s3_client()
     try:
         s3.download_file(bucket, key, path)
@@ -50,7 +54,7 @@ def download_file(bucket, key, path):
         sys.exit(1)
 
 
-def list_objects(bucket, prefix=None):
+def list_objects(bucket: str, prefix: str | None = None) -> None:
     s3 = s3_client()
     params = {"Bucket": bucket}
     if prefix:
@@ -66,7 +70,7 @@ def list_objects(bucket, prefix=None):
         sys.exit(1)
 
 
-def main():
+def main() -> None:
     p = argparse.ArgumentParser(description="S3 automation")
     sub = p.add_subparsers(dest="cmd", required=True)
 

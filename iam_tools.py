@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-import argparse, sys, json
+import argparse
+import json
+import sys
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -28,7 +31,7 @@ EC2_MIN_POLICY = {
 }
 
 
-def create_user(username):
+def create_user(username: str) -> None:
     try:
         iam.create_user(UserName=username)
         print(f"✅ Created user: {username}")
@@ -40,7 +43,7 @@ def create_user(username):
             sys.exit(1)
 
 
-def put_inline_policy(username, policy_name, policy_doc):
+def put_inline_policy(username: str, policy_name: str, policy_doc: dict) -> None:
     try:
         iam.put_user_policy(
             UserName=username,
@@ -53,7 +56,7 @@ def put_inline_policy(username, policy_name, policy_doc):
         sys.exit(1)
 
 
-def create_access_key(username):
+def create_access_key(username: str) -> None:
     try:
         resp = iam.create_access_key(UserName=username)
         ak = resp["AccessKey"]["AccessKeyId"]
@@ -66,7 +69,7 @@ def create_access_key(username):
         sys.exit(1)
 
 
-def delete_access_key(username, access_key_id):
+def delete_access_key(username: str, access_key_id: str) -> None:
     try:
         iam.delete_access_key(UserName=username, AccessKeyId=access_key_id)
         print(f"✅ Deleted key {access_key_id} for {username}")
@@ -75,7 +78,7 @@ def delete_access_key(username, access_key_id):
         sys.exit(1)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="IAM automation tool")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
