@@ -1,0 +1,22 @@
+﻿name: Feature request
+description: Suggest an enhancement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: What problem are you solving?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks / blast radius
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context

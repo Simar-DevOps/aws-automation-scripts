@@ -1,0 +1,30 @@
+﻿name: Bug report
+description: File a bug
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the bug
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Be precise and list steps
+  - type: input
+    id: tf_version
+    attributes:
+      label: Terraform version
+      placeholder: 1.6.x
+  - type: input
+    id: aws_region
+    attributes:
+      label: AWS region
+      placeholder: us-east-1
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / screenshots
