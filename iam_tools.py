@@ -8,27 +8,25 @@ iam = boto3.client("iam")
 
 # Minimal EC2 start/stop policy
 EC2_MIN_POLICY = {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ec2:DescribeInstances",
-        "ec2:DescribeInstanceStatus",
-        "ec2:DescribeTags"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ec2:StartInstances",
-        "ec2:StopInstances"
-      ],
-      "Resource": "*"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:DescribeInstanceStatus",
+                "ec2:DescribeTags",
+            ],
+            "Resource": "*",
+        },
+        {
+            "Effect": "Allow",
+            "Action": ["ec2:StartInstances", "ec2:StopInstances"],
+            "Resource": "*",
+        },
+    ],
 }
+
 
 def create_user(username):
     try:
@@ -41,17 +39,19 @@ def create_user(username):
             print(f"❌ Create user error: {e}")
             sys.exit(1)
 
+
 def put_inline_policy(username, policy_name, policy_doc):
     try:
         iam.put_user_policy(
             UserName=username,
             PolicyName=policy_name,
-            PolicyDocument=json.dumps(policy_doc)
+            PolicyDocument=json.dumps(policy_doc),
         )
         print(f"✅ Attached inline policy {policy_name} to {username}")
     except ClientError as e:
         print(f"❌ Attach policy error: {e}")
         sys.exit(1)
+
 
 def create_access_key(username):
     try:
@@ -65,6 +65,7 @@ def create_access_key(username):
         print(f"❌ Create key error: {e}")
         sys.exit(1)
 
+
 def delete_access_key(username, access_key_id):
     try:
         iam.delete_access_key(UserName=username, AccessKeyId=access_key_id)
@@ -72,6 +73,7 @@ def delete_access_key(username, access_key_id):
     except ClientError as e:
         print(f"❌ Delete key error: {e}")
         sys.exit(1)
+
 
 def main():
     parser = argparse.ArgumentParser(description="IAM automation tool")
@@ -101,6 +103,7 @@ def main():
         create_access_key(args.username)
     elif args.cmd == "delete-key":
         delete_access_key(args.username, args.access_key_id)
+
 
 if __name__ == "__main__":
     main()

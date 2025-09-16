@@ -4,23 +4,26 @@ import sys
 import boto3
 from botocore.exceptions import ClientError
 
+
 def ec2_client(region=None):
     return boto3.client("ec2", region_name=region)
+
 
 def list_instances(region=None):
     ec2 = ec2_client(region)
     response = ec2.describe_instances()
     for reservation in response["Reservations"]:
         for instance in reservation["Instances"]:
-            iid   = instance["InstanceId"]
+            iid = instance["InstanceId"]
             state = instance["State"]["Name"]
-            pub   = instance.get("PublicIpAddress", "-")
-            priv  = instance.get("PrivateIpAddress", "-")
-            name  = "-"
+            pub = instance.get("PublicIpAddress", "-")
+            priv = instance.get("PrivateIpAddress", "-")
+            name = "-"
             for t in instance.get("Tags", []) or []:
                 if t["Key"] == "Name":
                     name = t["Value"]
             print(f"{iid}\t{state}\t{name}\t{pub}\t{priv}")
+
 
 def start_instance(instance_id, region=None):
     ec2 = ec2_client(region)
@@ -30,6 +33,7 @@ def start_instance(instance_id, region=None):
     waiter.wait(InstanceIds=[instance_id])
     print(f"✅ {instance_id} is running.")
 
+
 def stop_instance(instance_id, region=None):
     ec2 = ec2_client(region)
     print(f"Stopping {instance_id}...")
@@ -37,6 +41,7 @@ def stop_instance(instance_id, region=None):
     waiter = ec2.get_waiter("instance_stopped")
     waiter.wait(InstanceIds=[instance_id])
     print(f"✅ {instance_id} is stopped.")
+
 
 def main():
     parser = argparse.ArgumentParser(description="Manage EC2 instances")
@@ -61,6 +66,7 @@ def main():
     except ClientError as e:
         print(f"AWS error: {e}")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
