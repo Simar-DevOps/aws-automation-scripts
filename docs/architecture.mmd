@@ -1,9 +1,0 @@
-﻿graph TD
-  Dev[Dev Branch PR] -->|fmt/validate/plan| CI[GitHub Actions]
-  CI -->|Plan Summary ✔| Reviewer[Reviewer]
-  Reviewer -->|Approve + Merge| Main[main]
-  Main -->|Deploy job| Env[GitHub Environment: production]
-  Env -->|Manual Approval| Apply[terraform apply]
-  Apply --> AWS[(AWS)]
-  AWS --> EC2[EC2 Instance]
-  AWS --> S3[S3 Bucket]

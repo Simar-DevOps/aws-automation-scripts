@@ -1,15 +1,14 @@
 ﻿## Summary
-Describe **what** is changing and **why**.
+Describe **what** changed and **why**.
 
-## Checklist
-- [ ] `terraform fmt` (no diffs)
-- [ ] `terraform validate` passes
-- [ ] PR **plan attached** (see Checks → Summary)
-- [ ] Risk noted (blast radius)
-- [ ] Rollback noted (how to revert resources/state)
+## Checklist (local)
+- [ ] Formatted with **Black** (`black .`)
+- [ ] Linted with **Flake8** (`flake8 .`)
+- [ ] Tests pass (`pytest -q`) – or explain why no tests yet
+- [ ] Risk/rollback noted if touching critical logic
 
-## Screenshots / Plan
-Link to the job summary or paste the relevant plan hunk.
+## Screenshots / Output (optional)
+Paste logs or screenshots that help reviewers.
 
-## Rollback
-Explain how you’d roll back if needed.
+## Rollback plan
+How would you undo this change if needed?

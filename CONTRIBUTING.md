@@ -1,30 +1,16 @@
-\# Contributing
+@'
+# Contributing
 
+- **Branching:** `feature/*`, `fix/*`, `chore/*`
+- **Commits:** Conventional Commits (e.g., `feat: add s3 list-objects prefix`)
+- **PRs:** Keep small, fill the PR template, explain risk & rollback.
 
-
-Thanks for helping!
-
-
-
-\- \*\*Branching:\*\* `feature/\*`, `fix/\*`, `chore/\*`
-
-\- \*\*Commits:\*\* Use Conventional Commits (e.g., `feat: add s3 lifecycle rule`, `fix: correct bucket policy`)
-
-\- \*\*PRs:\*\* Keep small, fill the PR template, link the \*\*plan summary\*\*, call out \*\*risk\*\* and \*\*rollback\*\*.
-
-
-
-\## Local checks
-
-
-
+## Local checks
 ```bash
+black .
+flake8 .
+pytest -q
 
-terraform fmt -recursive
-
-terraform validate
-
-terraform plan -var-file=env/dev.tfvars.example
 
 
 
