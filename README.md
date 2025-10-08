@@ -21,7 +21,7 @@ This repo is part of my DevOps bootcamp portfolio.
 
 ## CI / Branch protection
 - Every pull request runs **Black**, **Flake8**, and **Pytest**  
-  (see `.github/workflows/ci.yml`).
+  (see .github/workflows/python-ci.yml)
 - `main` is protected; PR checks must pass before merge.
 
 ## License
