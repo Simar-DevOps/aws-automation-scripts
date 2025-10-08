@@ -1,6 +1,7 @@
 # AWS Automation Scripts — boto3 tools for EC2 / S3 / IAM
 
-[![CI](https://img.shields.io/github/actions/workflow/status/Simar-DevOps/aws-automation-scripts/ci.yml?label=Python%20CI&logo=github-actions)](https://github.com/Simar-DevOps/aws-automation-scripts/actions)
+[![CI](https://img.shields.io/github/actions/workflow/status/Simar-DevOps/aws-automation-scripts/python-ci.yml?label=Python%20CI&logo=github-actions)](https://github.com/Simar-DevOps/aws-automation-scripts/actions)
+(https://github.com/Simar-DevOps/aws-automation-scripts/actions)
 ![Python](https://img.shields.io/badge/Python-3.11%2B-informational)
 ![Code style: Black](https://img.shields.io/badge/code%20style-Black-000000.svg)
 [![License](https://img.shields.io/badge/License-MIT-informational)](LICENSE)
